@@ -1,0 +1,94 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="restofeedback.list">
+      <field name="name">Resto feedback list</field>
+      <field name="model">restofeedback.restofeedback</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_customer"/>
+          <field name="tel_customer"/>
+          <field name="date_feed"/>
+           <field name="create_uid" string="Serveuse"/>
+           <field name="table_number"/>
+           <field name="quantity" string="Quantité Repas"/>
+           <field name="gout" string="Goût du repas"/>
+           <field name="service" string="Qualité de Service"/>
+           <field name="custome_comment" string="Commentaire"/>
+        </tree>
+      </field>
+    </record>
+
+      <record model="ir.ui.view" id="restofeedback.form">
+      <field name="name">Création Resto feedback </field>
+      <field name="model">restofeedback.restofeedback</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                     <group>
+                    <field name="name_customer"/>
+                    <field name="tel_customer"/>
+                    <field name="table_number" required="1"/>
+                </group>
+                <group>
+
+                   <field name="quantity" required="1" string="Quantité Repas"/>
+                   <field name="gout" required="1" string="Goût du repas"/>
+                   <field name="service" required="1" string="Qualité de Service"/>
+                 </group>
+                </group>
+
+                <group>
+                     <field name="custome_comment" string="Commentaire"/>
+                </group>
+            </sheet>
+             <div class="o_attachment_preview"/>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+
+        </form>
+      </field>
+    </record>
+      <record model="ir.ui.view" id="restofeedback.graph">
+         <field name="name">Analyse Feedback Client</field>
+         <field name="model">restofeedback.restofeedback</field>
+         <field name="arch" type="xml">
+             <graph string="Analyse Feedback Client" type="bar" sample="1" disable_linking="0">
+                  <field name="name_customer" />
+                 <field name="quantity" type="measure"/>
+                  <field name="gout"  type="measure"/>
+                  <field name="service" type="measure" />
+
+             </graph>
+         </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="restofeedback.action_window">
+      <field name="name">Resto Feedback CLient</field>
+      <field name="res_model">restofeedback.restofeedback</field>
+      <field name="view_mode">tree,form,graph,pivot</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Resto Feeedback Client" id="restofeedback.menu_root" />
+
+    <!-- menu categories -->
+
+    <menuitem name="Liste des Feeds Client" id="restofeedback.menu_feed" parent="restofeedback.menu_root"/>
+
+
+    <!-- actions -->
+
+    <menuitem name="Liste des Feeds Client" id="restofeedback.menu_feed_list" parent="restofeedback.menu_feed"
+              action="restofeedback.action_window"/>
+
+  </data>
+</odoo>
